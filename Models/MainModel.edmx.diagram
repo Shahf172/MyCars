@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dba152b4b5564cab9e6c663022576158" Name="Diagram1">
+        <EntityTypeShape EntityType="CarsModel.Automobile" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsModel.AutomobilesCompany" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsModel.Customer" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsModel.Customer_Addresses" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsModel.Customers_Inquiries" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsModel.ModelDetail" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsModel.Order" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsModel.Order_Deatils" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsModel.Customer_Phone" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <AssociationConnector Association="CarsModel.Automobiles_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Automobiles_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Customers_Inquiries_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Order_Deatils_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Customer_Addresses_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Customer_Phone_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Customers_Inquiries_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Order_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Order_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Order_Deatils_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsModel.Order_fk0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

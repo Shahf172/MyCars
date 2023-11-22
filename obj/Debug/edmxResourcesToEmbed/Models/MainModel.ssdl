@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Automobiles">
+    <Key>
+      <PropertyRef Name="AutomobileID" />
+    </Key>
+    <Property Name="AutomobileID" Type="int" Nullable="false" />
+    <Property Name="CompanyID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="ModelID" Type="int" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AutomobilesCompanies">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer_Addresses">
+    <Key>
+      <PropertyRef Name="AddressID" />
+    </Key>
+    <Property Name="AddressID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Address1" Type="text" Nullable="false" />
+    <Property Name="Address2" Type="text" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\FAHAD\SOURCE\REPOS\MYCARS\MYCARS\APP_DATA\CARS.MDF.dbo.Customer_Phone' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Customer_Phone">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="Ph1" />
+      <PropertyRef Name="Ph2" />
+      <PropertyRef Name="Cell" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Ph1" Type="int" Nullable="false" />
+    <Property Name="Ph2" Type="int" Nullable="false" />
+    <Property Name="Cell" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customers_Inquiries">
+    <Key>
+      <PropertyRef Name="InquiryID" />
+    </Key>
+    <Property Name="InquiryID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="AutomobileID" Type="int" Nullable="false" />
+    <Property Name="Message" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ModelDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ModelNumber" Type="int" Nullable="false" />
+    <Property Name="ModelName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ModelYear" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="OrderDetailsID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="DeliveryAddress" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order_Deatils">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="AutomobileID" Type="int" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="Automobiles_fk0">
+    <End Role="AutomobilesCompanies" Type="Self.AutomobilesCompanies" Multiplicity="1" />
+    <End Role="Automobiles" Type="Self.Automobiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutomobilesCompanies">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Automobiles">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Automobiles_fk1">
+    <End Role="ModelDetails" Type="Self.ModelDetails" Multiplicity="1" />
+    <End Role="Automobiles" Type="Self.Automobiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ModelDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Automobiles">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customer_Addresses_fk0">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Customer_Addresses" Type="Self.Customer_Addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customer_Addresses">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customer_Phone_fk0">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customer_Phone">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customers_Inquiries_fk0">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Customers_Inquiries" Type="Self.Customers_Inquiries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customers_Inquiries">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customers_Inquiries_fk1">
+    <End Role="Automobiles" Type="Self.Automobiles" Multiplicity="1" />
+    <End Role="Customers_Inquiries" Type="Self.Customers_Inquiries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Automobiles">
+        <PropertyRef Name="AutomobileID" />
+      </Principal>
+      <Dependent Role="Customers_Inquiries">
+        <PropertyRef Name="AutomobileID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_Deatils_fk0">
+    <End Role="Automobiles" Type="Self.Automobiles" Multiplicity="1" />
+    <End Role="Order_Deatils" Type="Self.Order_Deatils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Automobiles">
+        <PropertyRef Name="AutomobileID" />
+      </Principal>
+      <Dependent Role="Order_Deatils">
+        <PropertyRef Name="AutomobileID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_Deatils_fk1">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order_Deatils" Type="Self.Order_Deatils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order_Deatils">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_fk0">
+    <End Role="Order_Deatils" Type="Self.Order_Deatils" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_Deatils">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderDetailsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_fk1">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_fk2">
+    <End Role="Customer_Addresses" Type="Self.Customer_Addresses" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer_Addresses">
+        <PropertyRef Name="AddressID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="DeliveryAddress" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CarsModelStoreContainer">
+    <EntitySet Name="Automobiles" EntityType="Self.Automobiles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AutomobilesCompanies" EntityType="Self.AutomobilesCompanies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer_Addresses" EntityType="Self.Customer_Addresses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers_Inquiries" EntityType="Self.Customers_Inquiries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModelDetails" EntityType="Self.ModelDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_Deatils" EntityType="Self.Order_Deatils" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer_Phone" EntityType="Self.Customer_Phone" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Customer_Phone].[UserID] AS [UserID], 
+    [Customer_Phone].[Ph1] AS [Ph1], 
+    [Customer_Phone].[Ph2] AS [Ph2], 
+    [Customer_Phone].[Cell] AS [Cell]
+    FROM [dbo].[Customer_Phone] AS [Customer_Phone]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="Automobiles_fk0" Association="Self.Automobiles_fk0">
+      <End Role="AutomobilesCompanies" EntitySet="AutomobilesCompanies" />
+      <End Role="Automobiles" EntitySet="Automobiles" />
+    </AssociationSet>
+    <AssociationSet Name="Automobiles_fk1" Association="Self.Automobiles_fk1">
+      <End Role="ModelDetails" EntitySet="ModelDetails" />
+      <End Role="Automobiles" EntitySet="Automobiles" />
+    </AssociationSet>
+    <AssociationSet Name="Customer_Addresses_fk0" Association="Self.Customer_Addresses_fk0">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Customer_Addresses" EntitySet="Customer_Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="Customer_Phone_fk0" Association="Self.Customer_Phone_fk0">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Customer_Phone" EntitySet="Customer_Phone" />
+    </AssociationSet>
+    <AssociationSet Name="Customers_Inquiries_fk0" Association="Self.Customers_Inquiries_fk0">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Customers_Inquiries" EntitySet="Customers_Inquiries" />
+    </AssociationSet>
+    <AssociationSet Name="Customers_Inquiries_fk1" Association="Self.Customers_Inquiries_fk1">
+      <End Role="Automobiles" EntitySet="Automobiles" />
+      <End Role="Customers_Inquiries" EntitySet="Customers_Inquiries" />
+    </AssociationSet>
+    <AssociationSet Name="Order_Deatils_fk0" Association="Self.Order_Deatils_fk0">
+      <End Role="Automobiles" EntitySet="Automobiles" />
+      <End Role="Order_Deatils" EntitySet="Order_Deatils" />
+    </AssociationSet>
+    <AssociationSet Name="Order_Deatils_fk1" Association="Self.Order_Deatils_fk1">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Order_Deatils" EntitySet="Order_Deatils" />
+    </AssociationSet>
+    <AssociationSet Name="Order_fk0" Association="Self.Order_fk0">
+      <End Role="Order_Deatils" EntitySet="Order_Deatils" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="Order_fk1" Association="Self.Order_fk1">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="Order_fk2" Association="Self.Order_fk2">
+      <End Role="Customer_Addresses" EntitySet="Customer_Addresses" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

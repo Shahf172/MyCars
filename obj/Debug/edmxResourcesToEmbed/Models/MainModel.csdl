@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Automobile">
+    <Key>
+      <PropertyRef Name="AutomobileID" />
+    </Key>
+    <Property Name="AutomobileID" Type="Int32" Nullable="false" />
+    <Property Name="CompanyID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ModelID" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <NavigationProperty Name="AutomobilesCompany" Relationship="Self.Automobiles_fk0" FromRole="Automobiles" ToRole="AutomobilesCompanies" />
+    <NavigationProperty Name="ModelDetail" Relationship="Self.Automobiles_fk1" FromRole="Automobiles" ToRole="ModelDetails" />
+    <NavigationProperty Name="Customers_Inquiries" Relationship="Self.Customers_Inquiries_fk1" FromRole="Automobiles" ToRole="Customers_Inquiries" />
+    <NavigationProperty Name="Order_Deatils" Relationship="Self.Order_Deatils_fk0" FromRole="Automobiles" ToRole="Order_Deatils" />
+  </EntityType>
+  <EntityType Name="AutomobilesCompany">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Automobiles" Relationship="Self.Automobiles_fk0" FromRole="AutomobilesCompanies" ToRole="Automobiles" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Customer_Addresses" Relationship="Self.Customer_Addresses_fk0" FromRole="Customer" ToRole="Customer_Addresses" />
+    <NavigationProperty Name="Customer_Phone" Relationship="Self.Customer_Phone_fk0" FromRole="Customer" ToRole="Customer_Phone" />
+    <NavigationProperty Name="Customers_Inquiries" Relationship="Self.Customers_Inquiries_fk0" FromRole="Customer" ToRole="Customers_Inquiries" />
+    <NavigationProperty Name="Orders" Relationship="Self.Order_fk1" FromRole="Customer" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Customer_Addresses">
+    <Key>
+      <PropertyRef Name="AddressID" />
+    </Key>
+    <Property Name="AddressID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.Customer_Addresses_fk0" FromRole="Customer_Addresses" ToRole="Customer" />
+    <NavigationProperty Name="Orders" Relationship="Self.Order_fk2" FromRole="Customer_Addresses" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Customers_Inquiries">
+    <Key>
+      <PropertyRef Name="InquiryID" />
+    </Key>
+    <Property Name="InquiryID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="AutomobileID" Type="Int32" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Automobile" Relationship="Self.Customers_Inquiries_fk1" FromRole="Customers_Inquiries" ToRole="Automobiles" />
+    <NavigationProperty Name="Customer" Relationship="Self.Customers_Inquiries_fk0" FromRole="Customers_Inquiries" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="ModelDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ModelNumber" Type="Int32" Nullable="false" />
+    <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ModelYear" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Automobiles" Relationship="Self.Automobiles_fk1" FromRole="ModelDetails" ToRole="Automobiles" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="OrderDetailsID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DeliveryAddress" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.Order_fk1" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="Customer_Addresses" Relationship="Self.Order_fk2" FromRole="Order" ToRole="Customer_Addresses" />
+    <NavigationProperty Name="Order_Deatils" Relationship="Self.Order_Deatils_fk1" FromRole="Order" ToRole="Order_Deatils" />
+    <NavigationProperty Name="Order_Deatils1" Relationship="Self.Order_fk0" FromRole="Order" ToRole="Order_Deatils" />
+  </EntityType>
+  <EntityType Name="Order_Deatils">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="AutomobileID" Type="Int32" Nullable="false" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Automobile" Relationship="Self.Order_Deatils_fk0" FromRole="Order_Deatils" ToRole="Automobiles" />
+    <NavigationProperty Name="Order" Relationship="Self.Order_Deatils_fk1" FromRole="Order_Deatils" ToRole="Order" />
+    <NavigationProperty Name="Orders" Relationship="Self.Order_fk0" FromRole="Order_Deatils" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Customer_Phone">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="Ph1" />
+      <PropertyRef Name="Ph2" />
+      <PropertyRef Name="Cell" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Ph1" Type="Int32" Nullable="false" />
+    <Property Name="Ph2" Type="Int32" Nullable="false" />
+    <Property Name="Cell" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.Customer_Phone_fk0" FromRole="Customer_Phone" ToRole="Customer" />
+  </EntityType>
+  <Association Name="Automobiles_fk0">
+    <End Role="AutomobilesCompanies" Type="Self.AutomobilesCompany" Multiplicity="1" />
+    <End Role="Automobiles" Type="Self.Automobile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutomobilesCompanies">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Automobiles">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Automobiles_fk1">
+    <End Role="ModelDetails" Type="Self.ModelDetail" Multiplicity="1" />
+    <End Role="Automobiles" Type="Self.Automobile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ModelDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Automobiles">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customers_Inquiries_fk1">
+    <End Role="Automobiles" Type="Self.Automobile" Multiplicity="1" />
+    <End Role="Customers_Inquiries" Type="Self.Customers_Inquiries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Automobiles">
+        <PropertyRef Name="AutomobileID" />
+      </Principal>
+      <Dependent Role="Customers_Inquiries">
+        <PropertyRef Name="AutomobileID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_Deatils_fk0">
+    <End Role="Automobiles" Type="Self.Automobile" Multiplicity="1" />
+    <End Role="Order_Deatils" Type="Self.Order_Deatils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Automobiles">
+        <PropertyRef Name="AutomobileID" />
+      </Principal>
+      <Dependent Role="Order_Deatils">
+        <PropertyRef Name="AutomobileID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customer_Addresses_fk0">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Customer_Addresses" Type="Self.Customer_Addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customer_Addresses">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customer_Phone_fk0">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Customer_Phone" Type="Self.Customer_Phone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customer_Phone">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customers_Inquiries_fk0">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Customers_Inquiries" Type="Self.Customers_Inquiries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customers_Inquiries">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_fk1">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_fk2">
+    <End Role="Customer_Addresses" Type="Self.Customer_Addresses" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer_Addresses">
+        <PropertyRef Name="AddressID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="DeliveryAddress" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_Deatils_fk1">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order_Deatils" Type="Self.Order_Deatils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order_Deatils">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Order_fk0">
+    <End Role="Order_Deatils" Type="Self.Order_Deatils" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_Deatils">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderDetailsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CarsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Automobiles" EntityType="Self.Automobile" />
+    <EntitySet Name="AutomobilesCompanies" EntityType="Self.AutomobilesCompany" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Customer_Addresses" EntityType="Self.Customer_Addresses" />
+    <EntitySet Name="Customers_Inquiries" EntityType="Self.Customers_Inquiries" />
+    <EntitySet Name="ModelDetails" EntityType="Self.ModelDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Order_Deatils" EntityType="Self.Order_Deatils" />
+    <EntitySet Name="Customer_Phone" EntityType="Self.Customer_Phone" />
+    <AssociationSet Name="Automobiles_fk0" Association="Self.Automobiles_fk0">
+      <End Role="AutomobilesCompanies" EntitySet="AutomobilesCompanies" />
+      <End Role="Automobiles" EntitySet="Automobiles" />
+    </AssociationSet>
+    <AssociationSet Name="Automobiles_fk1" Association="Self.Automobiles_fk1">
+      <End Role="ModelDetails" EntitySet="ModelDetails" />
+      <End Role="Automobiles" EntitySet="Automobiles" />
+    </AssociationSet>
+    <AssociationSet Name="Customers_Inquiries_fk1" Association="Self.Customers_Inquiries_fk1">
+      <End Role="Automobiles" EntitySet="Automobiles" />
+      <End Role="Customers_Inquiries" EntitySet="Customers_Inquiries" />
+    </AssociationSet>
+    <AssociationSet Name="Order_Deatils_fk0" Association="Self.Order_Deatils_fk0">
+      <End Role="Automobiles" EntitySet="Automobiles" />
+      <End Role="Order_Deatils" EntitySet="Order_Deatils" />
+    </AssociationSet>
+    <AssociationSet Name="Customer_Addresses_fk0" Association="Self.Customer_Addresses_fk0">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Customer_Addresses" EntitySet="Customer_Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="Customer_Phone_fk0" Association="Self.Customer_Phone_fk0">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Customer_Phone" EntitySet="Customer_Phone" />
+    </AssociationSet>
+    <AssociationSet Name="Customers_Inquiries_fk0" Association="Self.Customers_Inquiries_fk0">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Customers_Inquiries" EntitySet="Customers_Inquiries" />
+    </AssociationSet>
+    <AssociationSet Name="Order_fk1" Association="Self.Order_fk1">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="Order_fk2" Association="Self.Order_fk2">
+      <End Role="Customer_Addresses" EntitySet="Customer_Addresses" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="Order_Deatils_fk1" Association="Self.Order_Deatils_fk1">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Order_Deatils" EntitySet="Order_Deatils" />
+    </AssociationSet>
+    <AssociationSet Name="Order_fk0" Association="Self.Order_fk0">
+      <End Role="Order_Deatils" EntitySet="Order_Deatils" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

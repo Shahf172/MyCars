@@ -1,0 +1,96 @@
+﻿@model IEnumerable<MyCars.Models.Automobile>
+
+@{
+    ViewBag.Title = "CarDetails";
+}
+
+<h2>CarDetails</h2>
+<div class="container" style="width:60%; margin-top:2%">
+    <table class="table table-striped">
+
+        <tr>
+            <th>
+               Automobile Image
+            </th>
+            <th>
+Automobile ID
+            </th>
+            <th>
+                Model ID
+            </th>
+            <th>
+                Model Number
+            </th>
+            <th>
+                Model Name
+            </th>
+            <th>
+                Model Year
+            </th>
+            <th>
+                Company ID
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Price
+            </th>
+
+        </tr>
+        @foreach(var item in Model)
+        {
+            <tr>
+
+                <td>
+                    <img src="http://ndl.mgccw.com/mu3/000/129/016/sss/b3290eef56a3499fb353c5b561fb6067_small.png" style="width:150px; height:100px" class="img-circle">
+                </td>
+                <td>
+                    @item.AutomobileID
+                </td>
+                <td>
+                    @item.ModelDetail.ID
+                </td>
+                <td>
+                    @item.ModelDetail.ModelNumber
+                </td>
+                <td>
+                    @item.ModelDetail.ModelName
+                </td>
+                <td>
+                    @item.ModelDetail.ModelYear
+                </td>
+                <td>
+                    @item.CompanyID
+                </td>
+                <td>
+                    @item.AutomobilesCompany.Name
+                </td>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    @item.Price
+                </td>
+
+            </tr>
+
+
+        }
+        
+
+       
+
+
+
+
+
+    </table>
+
+
+
+
+</div>
